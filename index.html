@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Advanced Browser</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="browser-container">
+        <div class="toolbar">
+            <button id="back-btn" title="Back">←</button>
+            <button id="forward-btn" title="Forward">→</button>
+            <button id="refresh-btn" title="Refresh">↻</button>
+            <button id="home-btn" title="Home">⌂</button>
+            <input type="text" id="address-bar" placeholder="Enter URL or search term">
+            <button id="go-btn">Go</button>
+            <button id="new-tab-btn" title="New Tab">+</button>
+        </div>
+        
+        <div class="tab-container">
+            <div class="tab-bar">
+                <div class="tab active" data-tab-id="1">
+                    <span>New Tab</span>
+                    <button class="close-tab">×</button>
+                </div>
+            </div>
+            
+            <div class="tab-content">
+                <iframe id="browser-frame" src="about:blank" frameborder="0"></iframe>
+            </div>
+        </div>
+        
+        <div class="status-bar">
+            <span id="status-text">Ready</span>
+        </div>
+    </div>
+    
+    <script src="script.js"></script>
+</body>
+</html>
