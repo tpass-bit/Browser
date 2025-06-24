@@ -2,37 +2,88 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Advanced Browser</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Mobile Advanced Browser</title>
     <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
 </head>
 <body>
     <div class="browser-container">
-        <div class="toolbar">
-            <button id="back-btn" title="Back">←</button>
-            <button id="forward-btn" title="Forward">→</button>
-            <button id="refresh-btn" title="Refresh">↻</button>
-            <button id="home-btn" title="Home">⌂</button>
-            <input type="text" id="address-bar" placeholder="Enter URL or search term">
-            <button id="go-btn">Go</button>
-            <button id="new-tab-btn" title="New Tab">+</button>
+        <!-- Top Navigation Bar -->
+        <div class="top-bar">
+            <button id="menu-btn"><i class="fas fa-bars"></i></button>
+            <input type="text" id="address-bar" placeholder="Search or enter address">
+            <button id="more-btn"><i class="fas fa-ellipsis-v"></i></button>
         </div>
         
-        <div class="tab-container">
-            <div class="tab-bar">
-                <div class="tab active" data-tab-id="1">
-                    <span>New Tab</span>
-                    <button class="close-tab">×</button>
+        <!-- Tab Bar -->
+        <div class="tab-bar">
+            <div class="tab active" data-tab-id="1">
+                <span>New Tab</span>
+                <button class="close-tab"><i class="fas fa-times"></i></button>
+            </div>
+            <button id="add-tab-btn"><i class="fas fa-plus"></i></button>
+        </div>
+        
+        <!-- Browser Frame -->
+        <div class="content-area">
+            <iframe id="browser-frame" src="about:blank"></iframe>
+        </div>
+        
+        <!-- Bottom Toolbar -->
+        <div class="bottom-bar">
+            <button id="back-btn"><i class="fas fa-arrow-left"></i></button>
+            <button id="forward-btn"><i class="fas fa-arrow-right"></i></button>
+            <button id="refresh-btn"><i class="fas fa-sync-alt"></i></button>
+            <button id="home-btn"><i class="fas fa-home"></i></button>
+            <button id="tabs-btn"><i class="fas fa-window-restore"></i></button>
+        </div>
+        
+        <!-- Menu Overlay -->
+        <div class="menu-overlay" id="menu-overlay">
+            <div class="menu-content">
+                <button class="menu-item" id="new-tab-menu"><i class="fas fa-plus"></i> New Tab</button>
+                <button class="menu-item" id="bookmarks-menu"><i class="fas fa-bookmark"></i> Bookmarks</button>
+                <button class="menu-item" id="history-menu"><i class="fas fa-history"></i> History</button>
+                <button class="menu-item" id="downloads-menu"><i class="fas fa-download"></i> Downloads</button>
+                <button class="menu-item" id="dark-mode-toggle"><i class="fas fa-moon"></i> Dark Mode</button>
+                <button class="menu-item" id="clear-data-menu"><i class="fas fa-trash"></i> Clear Browsing Data</button>
+                <button class="menu-item" id="settings-menu"><i class="fas fa-cog"></i> Settings</button>
+                <button class="menu-item" id="close-menu">Close</button>
+            </div>
+        </div>
+        
+        <!-- Downloads Panel -->
+        <div class="panel-overlay" id="downloads-panel">
+            <div class="panel-content">
+                <div class="panel-header">
+                    <h3>Downloads</h3>
+                    <button class="close-panel" data-panel="downloads-panel"><i class="fas fa-times"></i></button>
+                </div>
+                <div class="downloads-list" id="downloads-list">
+                    <!-- Downloads will be added here dynamically -->
                 </div>
             </div>
-            
-            <div class="tab-content">
-                <iframe id="browser-frame" src="about:blank" frameborder="0"></iframe>
+        </div>
+        
+        <!-- Tabs Overview Panel -->
+        <div class="panel-overlay" id="tabs-panel">
+            <div class="panel-content">
+                <div class="panel-header">
+                    <h3>Tabs</h3>
+                    <button class="close-panel" data-panel="tabs-panel"><i class="fas fa-times"></i></button>
+                </div>
+                <div class="tabs-grid" id="tabs-grid">
+                    <!-- Tabs thumbnails will be added here dynamically -->
+                </div>
+                <button class="add-tab-btn" id="add-tab-panel-btn"><i class="fas fa-plus"></i> New Tab</button>
             </div>
         </div>
         
-        <div class="status-bar">
+        <!-- Status Bar -->
+        <div class="status-bar" id="status-bar">
             <span id="status-text">Ready</span>
+            <span id="security-info"><i class="fas fa-lock"></i> Secure</span>
         </div>
     </div>
     
