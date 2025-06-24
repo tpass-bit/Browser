@@ -3,26 +3,35 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>Mobile Advanced Browser</title>
-    <link rel="stylesheet" href="style.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <title>Nexus Browser</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="./style.css">
 </head>
-<body>
+<body class="default-theme">
     <div class="browser-container">
         <!-- Top Navigation Bar -->
         <div class="top-bar">
-            <button id="menu-btn"><i class="fas fa-bars"></i></button>
-            <input type="text" id="address-bar" placeholder="Search or enter address">
-            <button id="more-btn"><i class="fas fa-ellipsis-v"></i></button>
+            <button id="menu-btn" class="circle-btn"><i class="fas fa-bars"></i></button>
+            <div class="address-container">
+                <input type="text" id="address-bar" placeholder="Search or enter address">
+                <div class="security-indicator" id="security-indicator">
+                    <i class="fas fa-lock"></i>
+                </div>
+            </div>
+            <button id="more-btn" class="circle-btn"><i class="fas fa-ellipsis-vertical"></i></button>
+        </div>
+        
+        <!-- Progress Bar -->
+        <div class="progress-container">
+            <div class="progress-bar" id="progress-bar"></div>
         </div>
         
         <!-- Tab Bar -->
         <div class="tab-bar">
-            <div class="tab active" data-tab-id="1">
-                <span>New Tab</span>
-                <button class="close-tab"><i class="fas fa-times"></i></button>
+            <div class="tabs-container" id="tabs-container">
+                <!-- Tabs will be added here dynamically -->
             </div>
-            <button id="add-tab-btn"><i class="fas fa-plus"></i></button>
+            <button id="add-tab-btn" class="circle-btn accent-btn"><i class="fas fa-plus"></i></button>
         </div>
         
         <!-- Browser Frame -->
@@ -40,53 +49,126 @@
         </div>
         
         <!-- Menu Overlay -->
-        <div class="menu-overlay" id="menu-overlay">
+        <div class="overlay" id="menu-overlay">
             <div class="menu-content">
-                <button class="menu-item" id="new-tab-menu"><i class="fas fa-plus"></i> New Tab</button>
-                <button class="menu-item" id="bookmarks-menu"><i class="fas fa-bookmark"></i> Bookmarks</button>
-                <button class="menu-item" id="history-menu"><i class="fas fa-history"></i> History</button>
-                <button class="menu-item" id="downloads-menu"><i class="fas fa-download"></i> Downloads</button>
-                <button class="menu-item" id="dark-mode-toggle"><i class="fas fa-moon"></i> Dark Mode</button>
-                <button class="menu-item" id="clear-data-menu"><i class="fas fa-trash"></i> Clear Browsing Data</button>
-                <button class="menu-item" id="settings-menu"><i class="fas fa-cog"></i> Settings</button>
-                <button class="menu-item" id="close-menu">Close</button>
+                <div class="menu-header">
+                    <h3>Menu</h3>
+                    <button class="close-btn" id="close-menu"><i class="fas fa-times"></i></button>
+                </div>
+                <div class="menu-items">
+                    <button class="menu-item" id="new-tab-menu">
+                        <i class="fas fa-plus"></i>
+                        <span>New Tab</span>
+                    </button>
+                    <button class="menu-item" id="bookmarks-menu">
+                        <i class="fas fa-bookmark"></i>
+                        <span>Bookmarks</span>
+                    </button>
+                    <button class="menu-item" id="history-menu">
+                        <i class="fas fa-history"></i>
+                        <span>History</span>
+                    </button>
+                    <button class="menu-item" id="downloads-menu">
+                        <i class="fas fa-download"></i>
+                        <span>Downloads</span>
+                    </button>
+                    <button class="menu-item" id="themes-menu">
+                        <i class="fas fa-palette"></i>
+                        <span>Themes</span>
+                    </button>
+                    <button class="menu-item" id="incognito-menu">
+                        <i class="fas fa-mask"></i>
+                        <span>Incognito Mode</span>
+                    </button>
+                    <button class="menu-item" id="settings-menu">
+                        <i class="fas fa-cog"></i>
+                        <span>Settings</span>
+                    </button>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Themes Panel -->
+        <div class="overlay" id="themes-panel">
+            <div class="panel-content">
+                <div class="panel-header">
+                    <h3>Themes</h3>
+                    <button class="close-btn" data-panel="themes-panel"><i class="fas fa-times"></i></button>
+                </div>
+                <div class="themes-grid">
+                    <div class="theme-option" data-theme="default-theme">
+                        <div class="theme-preview default-theme"></div>
+                        <span>Default</span>
+                    </div>
+                    <div class="theme-option" data-theme="dark-theme">
+                        <div class="theme-preview dark-theme"></div>
+                        <span>Dark</span>
+                    </div>
+                    <div class="theme-option" data-theme="amoled-theme">
+                        <div class="theme-preview amoled-theme"></div>
+                        <span>AMOLED</span>
+                    </div>
+                    <div class="theme-option" data-theme="blue-theme">
+                        <div class="theme-preview blue-theme"></div>
+                        <span>Blue</span>
+                    </div>
+                    <div class="theme-option" data-theme="green-theme">
+                        <div class="theme-preview green-theme"></div>
+                        <span>Green</span>
+                    </div>
+                    <div class="theme-option" data-theme="pink-theme">
+                        <div class="theme-preview pink-theme"></div>
+                        <span>Pink</span>
+                    </div>
+                </div>
             </div>
         </div>
         
         <!-- Downloads Panel -->
-        <div class="panel-overlay" id="downloads-panel">
+        <div class="overlay" id="downloads-panel">
             <div class="panel-content">
                 <div class="panel-header">
                     <h3>Downloads</h3>
-                    <button class="close-panel" data-panel="downloads-panel"><i class="fas fa-times"></i></button>
+                    <button class="close-btn" data-panel="downloads-panel"><i class="fas fa-times"></i></button>
                 </div>
                 <div class="downloads-list" id="downloads-list">
-                    <!-- Downloads will be added here dynamically -->
+                    <div class="empty-state">
+                        <i class="fas fa-download"></i>
+                        <p>No downloads yet</p>
+                    </div>
                 </div>
             </div>
         </div>
         
-        <!-- Tabs Overview Panel -->
-        <div class="panel-overlay" id="tabs-panel">
+        <!-- Tabs Panel -->
+        <div class="overlay" id="tabs-panel">
             <div class="panel-content">
                 <div class="panel-header">
                     <h3>Tabs</h3>
-                    <button class="close-panel" data-panel="tabs-panel"><i class="fas fa-times"></i></button>
+                    <button class="close-btn" data-panel="tabs-panel"><i class="fas fa-times"></i></button>
                 </div>
                 <div class="tabs-grid" id="tabs-grid">
-                    <!-- Tabs thumbnails will be added here dynamically -->
+                    <!-- Tab thumbnails will be added here -->
                 </div>
-                <button class="add-tab-btn" id="add-tab-panel-btn"><i class="fas fa-plus"></i> New Tab</button>
+                <button class="action-btn" id="add-tab-panel-btn">
+                    <i class="fas fa-plus"></i> New Tab
+                </button>
             </div>
         </div>
         
-        <!-- Status Bar -->
-        <div class="status-bar" id="status-bar">
-            <span id="status-text">Ready</span>
-            <span id="security-info"><i class="fas fa-lock"></i> Secure</span>
+        <!-- Error Overlay -->
+        <div class="overlay error-overlay" id="error-overlay">
+            <div class="error-content">
+                <div class="error-icon">
+                    <i class="fas fa-exclamation-triangle"></i>
+                </div>
+                <h3 id="error-title">Unable to Load Page</h3>
+                <p id="error-message"></p>
+                <button class="action-btn" id="error-close">OK</button>
+            </div>
         </div>
     </div>
-    
-    <script src="script.js"></script>
+
+    <script src="./script.js"></script>
 </body>
 </html>
