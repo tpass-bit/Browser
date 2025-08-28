@@ -1,0 +1,71 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Dashboard</title>
+  <link rel="stylesheet" href="style.css">
+  <script defer src="config.js"></script>
+  <script type="module" defer src="common.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
+  <script type="module" defer src="dashboard.js"></script>
+</head>
+<body>
+  <div class="container">
+    <div class="header">
+      <div class="brand"><div class="logo">FA</div> Firebase Admin</div>
+      <nav class="nav">
+        <a href="dashboard.html">Dashboard</a>
+        <a href="manage.html">Manage</a>
+        <button class="btn secondary" id="logout">Logout</button>
+      </nav>
+    </div>
+
+    <div class="grid stats">
+      <div class="card stat">
+        <div>
+          <div class="label">Total Users</div>
+          <div class="value" id="count-total">0</div>
+        </div>
+        <div class="badge">ALL</div>
+      </div>
+
+      <div class="card stat">
+        <div>
+          <div class="label">Active</div>
+          <div class="value" id="count-active">0</div>
+        </div>
+        <div class="badge active">ACTIVE</div>
+      </div>
+
+      <div class="card stat">
+        <div>
+          <div class="label">Verified</div>
+          <div class="value" id="count-verified">0</div>
+        </div>
+        <div class="badge verified">VERIFIED</div>
+      </div>
+
+      <div class="card stat">
+        <div>
+          <div class="label">Banned</div>
+          <div class="value" id="count-banned">0</div>
+        </div>
+        <div class="badge banned">BANNED</div>
+      </div>
+    </div>
+
+    <div class="card" style="margin-top:16px;">
+      <canvas id="statusChart" height="180"></canvas>
+    </div>
+
+    <footer>© <span id="year"></span> Firebase Admin</footer>
+  </div>
+
+  <script type="module">
+    import { doLogout } from './common.js';
+    document.getElementById('logout').addEventListener('click', doLogout);
+    document.getElementById('year').textContent = new Date().getFullYear();
+  </script>
+</body>
+</html>

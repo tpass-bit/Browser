@@ -1,41 +1,60 @@
-# Mobile Advanced Browser
+# Firebase Admin Dashboard (GitHub Pages)
 
-A feature-rich mobile browser designed specifically for smartphones and tablets, hosted on GitHub Pages.
+**Last generated:** 2025-08-28T07:42:18
 
-## Features
+This is a static admin dashboard for Firebase that runs on GitHub Pages.
+It uses **Firebase Auth** for admin login (email/password) and **Cloud Firestore**
+to track and manage users in a `users` collection.
 
-- **Mobile-first design**: Optimized for touch interactions
-- **Tabbed browsing**: Open and manage multiple tabs
-- **Dark mode**: Easy on the eyes in low-light environments
-- **Download manager**: Track your downloads
-- **Security indicators**: Visual feedback for secure/insecure sites
-- **Quick access menu**: Common actions within easy reach
-- **Tabs overview**: Grid view of all open tabs
+> **Important limitation (no server):**
+> - From a purely static site (GitHub Pages), you **cannot** securely create or delete Firebase Auth accounts, or assign custom claims. Those operations require privileged access via the Admin SDK (Cloud Functions or your secure server).
+> - This dashboard **manages Firestore documents** only (e.g., status = active/verified/banned). You can treat Firestore as your admin source of truth and enforce behavior in your client apps using security rules.
 
-## How to Use
+## Files
+- `index.html` – Login screen
+- `dashboard.html` – Dashboard with counts and a chart
+- `manage.html` – Manage users list (verify/ban/delete **Firestore doc**, add new Firestore user record)
+- `style.css` – Shared styles (accent `#748CFA`, background `#F4F9FC`)
+- `common.js` – Firebase init, auth guard, shared UI helpers
+- `dashboard.js` – Dashboard logic
+- `manage.js` – Manage page logic
+- `config.sample.js` – Copy to `config.js` and paste your Firebase web config
 
-1. Clone this repository
-2. Push to your GitHub Pages branch
-3. Visit your GitHub Pages URL on a mobile device
+## Quick Start (GitHub Pages)
+1. Create a Firebase project and enable **Authentication (Email/Password)** and **Cloud Firestore**.
+2. Create a **web app** in Firebase console and copy the config.  
+   Copy `config.sample.js` to `config.js` and paste your config.
+3. In **Firestore**, create a collection `users` with documents like:
+   ```json
+   {
+     "email": "user@example.com",
+     "displayName": "User One",
+     "status": "active",
+     "createdAt": <server timestamp>
+   }
+   ```
+4. Restrict access in **Firestore Rules** to your admin account UID(s):
+   ```
+   rules_version = '2';
+   service cloud.firestore {
+     match /databases/{database}/documents {
+       function isAdmin() {
+         // List of admin UIDs – replace with your Admin account UID(s)
+         return request.auth != null && request.auth.uid in [
+           "YOUR_ADMIN_UID_1",
+           "YOUR_ADMIN_UID_2"
+         ];
+       }
+       match /{document=**} {
+         allow read, write: if isAdmin();
+       }
+     }
+   }
+   ```
+5. Push this folder to a GitHub repo and enable **GitHub Pages** (Settings → Pages) with the root as the site.
+6. Visit `https://<your-username>.github.io/<your-repo>/` and log in.
 
-## Mobile-Specific Features
-
-1. **Touch-optimized UI**: Larger buttons and touch targets
-2. **Swipe gestures**: (Coming soon) Swipe to navigate
-3. **Mobile viewport**: Proper scaling for all device sizes
-4. **Vertical menus**: Designed for one-handed use
-5. **Thumb-friendly controls**: Bottom-aligned navigation
-
-## Limitations
-
-1. GitHub Pages restrictions still apply (X-Frame-Options, etc.)
-2. No persistent storage between sessions
-3. Limited to browser capabilities on GitHub Pages
-
-## Future Mobile Enhancements
-
-- Add swipe gestures for navigation
-- Implement pull-to-refresh
-- Add data saver mode
-- Improve touch feedback with animations
-- Add voice search capability
+## Notes
+- Dashboard counts and charts auto-update via Firestore listeners.
+- The **Manage** page lets you: verify, ban, unban, delete Firestore user docs, and add a new Firestore user doc.
+- For *real* Auth user creation/deletion or custom claims, use Cloud Functions (Admin SDK).
