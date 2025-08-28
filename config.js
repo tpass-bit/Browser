@@ -1,10 +1,11 @@
 // TEMP: redirect to sample until you paste real config
-// Copy this to config.js and paste your Firebase Web App config.
+// Copy this to config.js
 window.firebaseConfig = {
-  apiKey: "YOUR_API_KEY",
-  authDomain: "YOUR_PROJECT.firebaseapp.com",
-  projectId: "YOUR_PROJECT_ID",
-  storageBucket: "YOUR_PROJECT.appspot.com",
-  messagingSenderId: "SENDER_ID",
-  appId: "APP_ID"
+  apiKey: "AIzaSyBjw4t8_b0Of4zUCRITzteyi90aXqcaSpg",
+  authDomain: "demoprobeta3.firebaseapp.com",
+  databaseURL: "https://demoprobeta3-default-rtdb.asia-southeast1.firebasedatabase.app",
+  projectId: "demoprobeta3",
+  storageBucket: "demoprobeta3.appspot.com",
+  messagingSenderId: "369529000980",
+  appId: "1:369529000980:web:PLACE_YOUR_WEB_APP_ID_HERE" 
 };
